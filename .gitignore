@@ -50,7 +50,7 @@ Thumbs.db
 
 # Xcode
 build/*
-**/xcuserdata/*
+**/xcuserdata/
 **/.generated.swift
 project.xcworkspace/
 DerivedData/
