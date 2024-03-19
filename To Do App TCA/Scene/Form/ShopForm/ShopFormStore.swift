@@ -19,7 +19,6 @@ struct ShopFormFeature {
         var image: Image?
         var inputImage: UIImage?
         var showingImagePicker: Bool = false
-//        var shopItem: ShopItemFeature.State?
     }
     
     enum Action {
