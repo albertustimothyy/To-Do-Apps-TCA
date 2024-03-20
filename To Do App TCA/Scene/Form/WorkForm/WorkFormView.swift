@@ -13,7 +13,11 @@ struct WorkFormView: View {
     
     var body: some View {
         Section(header: Text("Work To Do")) {
-            TextField("Enter Project's Name", text: $store.workToDo.project.sending(\.setProject))
+            TextField(
+                "Enter Project's Name",
+                text: $store.workToDo.project.sending(\.setProject)
+            )
+            
             LabeledContent("Estimation Hours") {
                 HStack {
                     Button {

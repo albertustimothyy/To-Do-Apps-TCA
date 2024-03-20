@@ -15,17 +15,25 @@ struct AddFormView: View {
         Form {
             HStack {
                 Spacer()
+                
                 Text(store.editForm ? "Edit To Do" : "Add To Do")
                     .font(.largeTitle)
                     .bold()
+                
                 Spacer()
             }
             .scrollContentBackground(.hidden)
             Section(header: Text("General Information")) {
                 
-                TextField("Enter Task Name", text: $store.inputName.sending(\.setName))
+                TextField(
+                    "Enter Task Name",
+                    text: $store.inputName.sending(\.setName)
+                )
                 
-                TextField("Enter Description", text: $store.inputDescription.sending(\.setDescription))
+                TextField(
+                    "Enter Description",
+                    text: $store.inputDescription.sending(\.setDescription)
+                )
                 
                 
                 DatePicker(
@@ -36,7 +44,10 @@ struct AddFormView: View {
                 )
                 
                 if(!store.editForm) {
-                    Picker("Type", selection: $store.inputType.sending(\.setType)) {
+                    Picker(
+                        "Type",
+                        selection: $store.inputType.sending(\.setType)
+                    ) {
                         Text("General")
                             .tag(ToDoType.general)
                         Text("Work")
@@ -53,16 +64,18 @@ struct AddFormView: View {
                 EmptyView()
             case .work:
                 WorkFormView(
-                    store: store.scope(state: \.workData, action: \.workData) ?? Store(initialState: WorkFormFeature.State(
-                        workToDo: WorkToDo(
-                            name: store.inputName,
-                            description: store.inputDescription,
-                            done: false,
-                            project: "",
-                            hoursEstimate: 0,
-                            deadline: Date()
+                    store: store.scope(state: \.workData, action: \.workData) ??
+                    Store(
+                        initialState: WorkFormFeature.State(
+                            workToDo: WorkToDo(
+                                name: store.inputName,
+                                description: store.inputDescription,
+                                done: false,
+                                project: "",
+                                hoursEstimate: 0,
+                                deadline: Date()
+                            )
                         )
-                    )
                     ){
                         WorkFormFeature()
                     }
@@ -106,12 +119,15 @@ struct AddFormView: View {
                         TravelFormFeature()
                     }
                 )
-                EmptyView()
             }
+            
             Button {
                 store.send(.saveButtonTapped)
             } label: {
-                Text("Save").font(.title3).fontWeight(.heavy).frame(maxWidth: .infinity)
+                Text("Save")
+                    .font(.title3)
+                    .fontWeight(.heavy)
+                    .frame(maxWidth: .infinity)
             }
         }
         .toolbar {
@@ -133,14 +149,14 @@ struct AddFormView: View {
     NavigationStack {
         AddFormView(
             store: Store(
-                initialState:
-                    AddFormFeature.State(
-                        editForm: false,
-                        inputName: "",
-                        inputDescription: "",
-                        inputDeadline: Date(),
-                        inputType: .general
-                    )
+                initialState: AddFormFeature.State(
+                    editForm: false,
+                    inputName: "",
+                    inputDescription: "",
+                    inputDeadline: Date(),
+                    inputDone: false,
+                    inputType: .general
+                )
             ) {
                 AddFormFeature()
             }

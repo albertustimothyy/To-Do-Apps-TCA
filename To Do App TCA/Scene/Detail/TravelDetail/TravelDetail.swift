@@ -15,8 +15,8 @@ struct TravelDetail: View {
             Text("Travel's Details")
                 .font(.title2)
                 .fontWeight(.semibold)
+            
             HStack {
-                
                 Image(systemName: "timer.circle.fill")
                     .resizable()
                     .foregroundStyle(.blue)
@@ -24,7 +24,6 @@ struct TravelDetail: View {
                     .frame(width: 55, height: 55)
                 
                 VStack(alignment: .leading) {
-                    
                     Text("Travel's Date:")
                         .font(.headline)
                     

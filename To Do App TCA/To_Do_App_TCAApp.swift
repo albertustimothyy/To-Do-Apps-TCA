@@ -10,15 +10,15 @@ import ComposableArchitecture
 
 @main
 struct To_Do_App_TCAApp: App {
-    let persistenceController = PersistenceController.shared
-
+//    let persistenceController = PersistenceController.shared
+    
     var body: some Scene {
         WindowGroup {
             ToDoListView(
                 store: Store(
-                    initialState: ToDoListFeature.State(
-                        toDos: [
-                            AnyToDo(
+                    initialState: ToDoListFeature.State(toDos: [
+                        ToDoRowFeature.State(
+                            toDo: AnyToDo(
                                 GeneralToDo(
                                     name: "First Task",
                                     description: "Finish it before 12 March 2024",
@@ -26,34 +26,38 @@ struct To_Do_App_TCAApp: App {
                                     deadline: Date()
                                 ),
                                 .general
-                            ),
-                            AnyToDo(
+                            )
+                        ),
+                        ToDoRowFeature.State(
+                            toDo: AnyToDo(
                                 GeneralToDo(
-                                    name: "Second Task",
-                                    description: "Finish it before 12 March 2024",
-                                    done: false,
-                                    deadline: Date()
-                                ),
-                                .general
-                            ),
-                            AnyToDo(
-                                GeneralToDo(
-                                    name: "Third Task",
-                                    description: "Finish it before 12 March 2024",
+                                    name: "First DASDASDSA",
+                                    description: "Finish it before 13 March 2024",
                                     done: false,
                                     deadline: Date()
                                 ),
                                 .general
                             )
-                        ]
-                    )
+                        ),
+                        ToDoRowFeature.State(
+                            toDo: AnyToDo(
+                                GeneralToDo(
+                                    name: "First DSADADSADSAD",
+                                    description: "Finish it before 14 March 2024",
+                                    done: false,
+                                    deadline: Date()
+                                ),
+                                .general
+                            )
+                        ),
+                    ])
                 ) {
                     ToDoListFeature()
                 }
             )
-//            ContentView()
-//                .environment(\.managedObjectContext, persistenceController.container.viewContext)
-//            ToDoListView()
+            //            ContentView()
+            //                .environment(\.managedObjectContext, persistenceController.container.viewContext)
+            //            ToDoListView()
         }
     }
 }

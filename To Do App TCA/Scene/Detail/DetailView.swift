@@ -14,28 +14,30 @@ struct DetailView: View {
     var body: some View {
         ScrollView {
             VStack(spacing: 30) {
-                DetailTitle(
-                    name: store.toDo.base.name,
-                    type: store.toDo.typee
-                )
-                Deadline(
-                    deadline: store.toDo.base.deadline,
-                    done: store.toDo.base.done
-                )
+                DetailTitle()
                 
-                DescriptionLabel(store.toDo.base.description)
+                Deadline()
+                
+                DescriptionLabel()
                 
                 switch store.toDo.typee {
                 case .general:
                     EmptyView()
+                    
                 case .shop:
-                    if let shopToDo = store.toDo.base as? ShopToDo { ShopDetail(shopToDo: shopToDo) }
+                    if let shopToDo = store.toDo.base as? ShopToDo {
+                        ShopDetail(shopToDo: shopToDo)
+                    }
+                    
                 case .travel:
                     if let travelToDo = store.toDo.base as? TravelToDo {
                         TravelDetail(travelToDo: travelToDo)
                     }
+                    
                 case .work:
-                    if let workToDo = store.toDo.base as? WorkToDo {WorkDetail(workToDo: workToDo)}
+                    if let workToDo = store.toDo.base as? WorkToDo {
+                        WorkDetail(workToDo: workToDo)
+                    }
                 }
             }
         }
@@ -46,11 +48,14 @@ struct DetailView: View {
                     Text("To Do's Details")
                         .font(.title3)
                         .bold()
+                    
                     Spacer()
+                    
                     Button {
                         store.send(.editButtonTapped)
                     } label: {
-                        Image(systemName: "square.and.pencil")       .resizable()
+                        Image(systemName: "square.and.pencil")
+                            .resizable()
                             .scaledToFit()
                             .frame(width: 25, height: 25)
                             .font(Font.title.weight(.heavy))
@@ -62,41 +67,45 @@ struct DetailView: View {
             NavigationStack {
                 AddFormView(store: editToDoStore)
             }
-           
         }
     }
     
     @ViewBuilder
-    func DetailTitle(name: String, type: ToDoType) -> some View {
+    func DetailTitle() -> some View {
         HStack {
             VStack(alignment: .leading) {
-                Text(name)
+                Text(store.toDo.base.name)
                     .font(.title)
                     .fontWeight(.bold)
-                Text(type.rawValue.capitalized)
+                
+                Text(store.toDo.typee.rawValue.capitalized)
                     .foregroundStyle(.gray)
             }
+            
             Spacer()
         }
     }
     
     @ViewBuilder
-    func Deadline(deadline: Date, done: Bool) -> some View {
+    func Deadline() -> some View {
         
         HStack {
             Spacer()
+            
             Image(systemName: "calendar.circle.fill")
                 .resizable()
                 .foregroundStyle(.blue)
                 .scaledToFit()
                 .frame(width: 55, height: 55)
+            
             VStack(alignment:.leading) {
                 Text("Due date")
                     .foregroundStyle(.gray)
                 
-                Text(deadline.formatted(.dateTime.day().month().year()))
+                Text(store.toDo.base.deadline.formatted(.dateTime.day().month().year()))
                     .bold()
             }
+            
             Spacer()
             
             Divider()
@@ -104,28 +113,30 @@ struct DetailView: View {
                 .overlay(.gray)
             
             Spacer()
-            Text(done ? "Done" : "In Progress")
+            
+            Text(store.toDo.base.done ? "Done" : "In Progress")
                 .foregroundStyle(.white)
                 .padding(.horizontal)
                 .padding(.vertical, 15)
-                .background(done ? .green : .orange)
+                .background(store.toDo.base.done ? .green : .orange)
                 .clipShape(RoundedRectangle(cornerRadius: 15))
-            Spacer()
             
+            Spacer()
         }
     }
     
     @ViewBuilder
-    func DescriptionLabel(_ desc: String) -> some View {
+    func DescriptionLabel() -> some View {
         HStack {
             VStack(alignment: .leading) {
                 Text("Description ")
                     .font(.title3)
                     .fontWeight(.semibold)
                 
-                Text(desc)
+                Text(store.toDo.base.description)
                     .foregroundStyle(.gray)
             }
+            
             Spacer()
         }
     }
@@ -136,19 +147,18 @@ struct DetailView: View {
         DetailView(
             store: Store(
                 initialState: DetailFeature.State(
-                    toDo:
-                        AnyToDo(
-                            TravelToDo(
-                                name: "dsdsadsad",
-                                description: "dsadsadasdasdasda",
-                                done: false,
-                                deadline: Date(timeIntervalSinceNow: 172800),
-                                destination: TravelToDo.Coordinates(latitude: 0, longitude: 0),
-                                startDate: Date(),
-                                endDate: Date(timeIntervalSinceNow: 86400)
-                            ),                            .travel
-                        )
-                    
+                    toDo: AnyToDo(
+                        TravelToDo(
+                            name: "dsdsadsad",
+                            description: "dsadsadasdasdasda",
+                            done: false,
+                            deadline: Date(timeIntervalSinceNow: 172800),
+                            destination: TravelToDo.Coordinates(latitude: 0, longitude: 0),
+                            startDate: Date(),
+                            endDate: Date(timeIntervalSinceNow: 86400)
+                        ),
+                        .travel
+                    )
                 )
             ) {
                 DetailFeature()

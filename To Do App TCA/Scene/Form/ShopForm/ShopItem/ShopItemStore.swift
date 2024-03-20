@@ -15,69 +15,63 @@ struct ShopItemFeature {
         var id: String = UUID().uuidString
         var image: Image?
         var item: ShoppingItem
-        var showingImagePicker: Bool = false
         var inputImage: UIImage?
+        init(image: Image? = nil, item: ShoppingItem, inputImage: UIImage? = nil) {
+            self.image = ImageHelper().decodeImage(photo: item.photo)
+            self.item = item
+            self.inputImage = inputImage
+        }
     }
     
     enum Action {
         case decodeImage
-        case showingImagePicker
         case loadImage
-        case encodeImage
         case setName(String)
         case setBudget(Float)
         case setImage(UIImage?)
         case deleteButtonTapped
+        case updateShoppingList
         case delegate(Delegate)
         enum Delegate {
             case deleteItem
+            case updateShoppingList
         }
     }
     var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action{
-                
             case .decodeImage:
-                let dataDecoded: Data = Data(base64Encoded: state.item.photo, options: .ignoreUnknownCharacters)!
-                let decodedImage = UIImage(data:  dataDecoded)
-                state.image = Image(uiImage: decodedImage ?? UIImage())
-                return .none
-                
-            case .showingImagePicker:
-                state.showingImagePicker.toggle()
+                state.image = ImageHelper().decodeImage(photo: state.item.photo)
                 return .none
                 
             case .loadImage:
-                guard let inputImage = state.inputImage else { return .none }
-                state.image = Image(uiImage: inputImage)
-                return .none
-                
-            case .encodeImage:
-                if let inputData = state.inputImage?.pngData() {
-                    let strBase64 = inputData.base64EncodedString(options: .lineLength64Characters)
-                    state.item.photo = strBase64
-                }
+                state.image = ImageHelper().loadImage(photo: state.inputImage)
+                state.item.photo = ImageHelper().encodeImage(inputImage: state.inputImage)
                 return .none
                 
             case let .setName(name):
                 state.item.productName = name
-                return .none
-                
+                return .send(.updateShoppingList)
+
             case let .setBudget(budget):
                 state.item.budget = budget
-                return .none
-                
+                return .send(.updateShoppingList)
+
             case let .setImage(image):
                 state.inputImage = image
-                return .none
+                return .send(.updateShoppingList)
                 
             case .deleteButtonTapped:
                 state.image = nil
                 state.inputImage = nil
                 return .send(.delegate(.deleteItem))
                 
+                
             case .delegate:
                 return .none
+                
+            case .updateShoppingList:
+                return .send(.delegate(.updateShoppingList))
             }
         }
     }

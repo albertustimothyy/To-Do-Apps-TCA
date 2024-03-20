@@ -17,6 +17,7 @@ struct AddFormFeature {
         var inputName: String
         var inputDescription: String
         var inputDeadline: Date
+        var inputDone: Bool
         var inputType: ToDoType
         var workData: WorkFormFeature.State?
         var shopData: ShopFormFeature.State?
@@ -29,6 +30,7 @@ struct AddFormFeature {
         case setDescription(String)
         case setType(ToDoType)
         case setDeadline(Date)
+        case setDone(Bool)
         case workData(WorkFormFeature.Action)
         case shopData(ShopFormFeature.Action)
         case travelData(TravelFormFeature.Action)
@@ -44,7 +46,6 @@ struct AddFormFeature {
     var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
-                
             case .xMarkTapped:
                 state.workData = nil
                 state.shopData = nil
@@ -95,6 +96,14 @@ struct AddFormFeature {
                 }
                 return .none
                 
+            case let .setDone(done):
+                if state.editForm == true {
+                    state.inputDone = done
+                } else {
+                    state.inputDone = false
+                }
+                return.none
+                
             case let .setType(type):
                 state.inputType = type
                 switch state.inputType {
@@ -103,25 +112,56 @@ struct AddFormFeature {
                     state.shopData = nil
                     state.travelData = nil
                 case .shop:
-                    state.shopData = ShopFormFeature.State(shopToDo: ShopToDo(name: state.inputName, description: state.inputDescription, done: false, deadline: state.inputDeadline, shoppingList: []))
+                    state.shopData = ShopFormFeature.State(
+                        shopToDo: ShopToDo(
+                            name: state.inputName,
+                            description: state.inputDescription,
+                            done: state.inputDone,
+                            deadline: state.inputDeadline,
+                            shoppingList: []
+                        )
+                    )
                     state.workData = nil
                     state.travelData = nil
                 case .travel:
-                    state.travelData = TravelFormFeature.State(travelToDo: TravelToDo(name: state.inputName, description: state.inputDescription, done: false, deadline: state.inputDeadline, destination: TravelToDo.Coordinates(latitude: 0, longitude: 0), startDate: Date(), endDate: Date(timeIntervalSinceNow: 86400)))
+                    state.travelData = TravelFormFeature.State(
+                        travelToDo: TravelToDo(
+                            name: state.inputName,
+                            description: state.inputDescription,
+                            done: state.inputDone,
+                            deadline: state.inputDeadline,
+                            destination: TravelToDo.Coordinates(latitude: 0, longitude: 0),
+                            startDate: Date(),
+                            endDate: Date(timeIntervalSinceNow: 86400)
+                        )
+                    )
                     state.workData = nil
                     state.shopData = nil
                 case .work:
-                    state.workData = WorkFormFeature.State(workToDo: WorkToDo(name: state.inputName, description: state.inputDescription, done: false, project: "", hoursEstimate: 0, deadline: state.inputDeadline))
+                    state.workData = WorkFormFeature.State(
+                        workToDo: WorkToDo(
+                            name: state.inputName,
+                            description: state.inputDescription, 
+                            done: state.inputDone,
+                            project: "",
+                            hoursEstimate: 0,
+                            deadline: state.inputDeadline
+                        )
+                    )
                     state.shopData = nil
                     state.travelData = nil
                 }
-                
                 return .none
                 
-            case.saveButtonTapped:
+            case .saveButtonTapped:
                 switch state.inputType {
                 case .general:
-                    let toDo = GeneralToDo(name: state.inputName, description: state.inputDescription, done: false, deadline: state.inputDeadline)
+                    let toDo = GeneralToDo(
+                        name: state.inputName,
+                        description: state.inputDescription,
+                        done: state.inputDone,
+                        deadline: state.inputDeadline
+                    )
                     state.toDo = AnyToDo(toDo, .general)
                     state.workData = nil
                     state.shopData = nil
@@ -130,7 +170,6 @@ struct AddFormFeature {
                     guard let toDo = state.shopData?.shopToDo else { return .none }
                     state.toDo = AnyToDo(toDo, .shop)
                     state.workData = nil
-                    state.shopData = nil
                     state.travelData = nil
                 case .travel:
                     guard let toDo = state.travelData?.travelToDo else { return .none }
@@ -145,11 +184,24 @@ struct AddFormFeature {
                     state.shopData = nil
                     state.travelData = nil
                 }
+                
                 return .run { [toDo = state.toDo] send in
-                    await send(.delegate(.saveToDo(toDo!)))
+                    await send(
+                        .delegate(
+                            .saveToDo(
+                                toDo ?? AnyToDo(
+                                    GeneralToDo(
+                                        name: "kosong",
+                                        description: "",
+                                        done: false,
+                                        deadline: Date()),
+                                        .general
+                                )
+                            )
+                        )
+                    )
                     await dismiss()
                 }
-                
                 
             case .workData:
                 return .none

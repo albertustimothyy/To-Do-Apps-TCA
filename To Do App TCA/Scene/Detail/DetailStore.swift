@@ -20,6 +20,10 @@ struct DetailFeature {
     enum Action {
         case editButtonTapped
         case editToDo(PresentationAction<AddFormFeature.Action>)
+        case delegate(Delegate)
+        enum Delegate {
+            case editToDo(AnyToDo)
+        }
     }
     
     @Dependency(\.dismiss) var dismiss
@@ -37,9 +41,11 @@ struct DetailFeature {
                             inputName: anyToDo.name,
                             inputDescription: anyToDo.description,
                             inputDeadline: anyToDo.deadline,
+                            inputDone: anyToDo.done,
                             inputType: .general
                         )
                     }
+                    
                 case .shop:
                     if let anyToDo = state.toDo.base as? ShopToDo {
                         state.editToDo = AddFormFeature.State(
@@ -47,22 +53,26 @@ struct DetailFeature {
                             inputName: anyToDo.name,
                             inputDescription: anyToDo.description,
                             inputDeadline: anyToDo.deadline,
+                            inputDone: anyToDo.done, 
                             inputType: .shop,
                             shopData: ShopFormFeature.State(shopToDo: anyToDo)
                         )
                     }
+                    
                 case .travel:
-                    if let anyToDo = state.toDo.base as? TravelToDo? {
+                    if let anyToDo = state.toDo.base as? TravelToDo {
                         state.travelToDo = anyToDo
                         state.editToDo = AddFormFeature.State(
                             editForm: true,
-                            inputName: anyToDo?.name ?? "",
-                            inputDescription: anyToDo?.description ?? "",
-                            inputDeadline: anyToDo?.deadline ?? Date(),
+                            inputName: anyToDo.name,
+                            inputDescription: anyToDo.description,
+                            inputDeadline: anyToDo.deadline,
+                            inputDone: anyToDo.done,
                             inputType: .travel,
-                            travelData: TravelFormFeature.State(travelToDo: anyToDo!)
+                            travelData: TravelFormFeature.State(travelToDo: anyToDo)
                         )
                     }
+                    
                 case .work:
                     if let anyToDo = state.toDo.base as? WorkToDo{
                         state.editToDo = AddFormFeature.State(
@@ -70,60 +80,28 @@ struct DetailFeature {
                             inputName: anyToDo.name,
                             inputDescription: anyToDo.description,
                             inputDeadline: anyToDo.deadline,
+                            inputDone: anyToDo.done, 
                             inputType: .work,
                             workData: WorkFormFeature.State(workToDo: anyToDo)
                         )
                     }
                 }
-               
-//                switch state.toDo.typee {
-//                case .general:
-//                    if let generalToDo = state.toDo.base as? GeneralToDo? {
-//                        state.editToDo = EditFormFeature.State(
-//                            type: .general,
-//                            generalToDo: generalToDo
-//                        )
-//                    }
-//                case .shop:
-//                    if let shopToDo = state.toDo.base as? ShopToDo? {
-//                        state.editToDo = EditFormFeature.State(
-//                            type: .shop,
-//                            shopToDo: shopToDo
-//                        )
-//                    }
-//                case .travel:
-//                    if let travelToDo = state.toDo.base as? TravelToDo? {
-//                        state.editToDo = EditFormFeature.State(
-//                            type: .travel,
-//                            travelToDo: travelToDo
-//                        )
-//                    }
-//                case .work:
-//                    if let workToDo = state.toDo.base as? WorkToDo? {
-//                        state.editToDo = EditFormFeature.State(
-//                            type: .work,
-//                            workToDo: workToDo
-//                        )
-//                    }
-//                }
-               
                 return .none
-                
-//            case let .destination(.presented(.addToDo(.delegate(.saveToDo(toDo))))):
-//                state.toDos.append(toDo)
-//                return .none
                 
             case let .editToDo(.presented(.delegate(.saveToDo(toDo)))):
                 state.toDo = toDo
-                return .none
+                return  .run { [toDo = state.toDo] send in
+                    await send(.delegate(.editToDo(toDo)))
+                }
                 
             case .editToDo:
                 return .none
      
+            case .delegate:
+                return .none
             }
         }
         .ifLet(\.$editToDo, action: \.editToDo) {
-//            EditFormFeature()
             AddFormFeature()
         }
     }

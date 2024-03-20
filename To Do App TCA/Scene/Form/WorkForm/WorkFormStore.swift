@@ -23,7 +23,7 @@ struct WorkFormFeature {
     }
         
     var body: some ReducerOf<Self> {
-        Reduce {state, action in
+        Reduce { state, action in
             switch action {
                 
             case let .setProject(project):
@@ -31,7 +31,7 @@ struct WorkFormFeature {
                 return .none
                 
             case .decrementButtonTapped:
-                if (state.workToDo.hoursEstimate > 0){
+                if (state.workToDo.hoursEstimate > 0) {
                     state.workToDo.hoursEstimate -= 1
                 }
                 return .none
@@ -43,8 +43,6 @@ struct WorkFormFeature {
             case let .setDeadline(deadline):
                 state.workToDo.deadline = deadline
                 return .none
-                
-                
             }
         }
     }

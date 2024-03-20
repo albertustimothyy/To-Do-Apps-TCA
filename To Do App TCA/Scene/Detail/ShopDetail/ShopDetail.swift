@@ -29,7 +29,6 @@ struct ShopDetail: View {
 
 struct ShopDetailRow: View {
     var item: ShoppingItem
-    @State var image: Image?
     let numberFormatter: NumberFormatter = {
            let formatter = NumberFormatter()
            formatter.numberStyle = .currency
@@ -44,16 +43,15 @@ struct ShopDetailRow: View {
                 Rectangle()
                     .fill(.secondary)
                 
-                image?
+                ImageHelper().decodeImage(photo: item.photo)?
                     .resizable()
                     .scaledToFit()
             }
             .clipShape(RoundedRectangle(cornerRadius: 10))
             .frame(width: 70, height: 70)
-            .onAppear() {
-                decodeImage()
-            }
+            
             Spacer()
+            
             VStack (alignment: .trailing) {
                 Text(item.productName).bold()
                 Text(numberFormatter.string(from: NSNumber(value: item.budget)) ?? "")
@@ -61,12 +59,6 @@ struct ShopDetailRow: View {
         }
         .padding(15)
         .background(Color(.systemGray6))
-    }
-    
-    func decodeImage() {
-        let dataDecoded : Data = Data(base64Encoded: item.photo, options: .ignoreUnknownCharacters)!
-        let decodedimage = UIImage(data: dataDecoded)
-        image = Image(uiImage: decodedimage ??  UIImage())
     }
 }
 

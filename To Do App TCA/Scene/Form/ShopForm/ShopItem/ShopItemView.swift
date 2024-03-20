@@ -34,7 +34,7 @@ struct ShopItemView: View {
                     Task {
                         if let photosPickerItem {
                             let data = try await photosPickerItem.loadTransferable(type: Data.self)
-                            if let image = UIImage(data: data!) {
+                            if let image = UIImage(data: data ?? Data()) {
                                 store.send(.setImage(image))
                             }
                         }
@@ -42,18 +42,19 @@ struct ShopItemView: View {
                     }
                 }
             }
-            .onAppear() {
-                store.send(.decodeImage)
-            }
+//            .onAppear() {
+//                store.send(.decodeImage)
+//            }
             .onChange(of: store.inputImage) {
                 store.send(.loadImage)
-                store.send(.encodeImage)
             }
             
             VStack(alignment: .leading) {
                 TextField("Enter Name", text: $store.item.productName.sending(\.setName))
+                
                 HStack {
                     Text("Rp. ")
+                    
                     TextField(
                         "Enter Budget",
                         value: $store.item.budget.sending(\.setBudget),

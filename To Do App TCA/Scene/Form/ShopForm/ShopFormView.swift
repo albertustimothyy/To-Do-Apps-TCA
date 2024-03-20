@@ -13,29 +13,27 @@ struct ShopFormView: View {
     @Bindable var store: StoreOf<ShopFormFeature>
     var body: some View {
         Section(header: Text("Shop To Do")) {
-            ForEachStore(
+            ForEach(
                 store.scope(state: \.shoppingItems, action: \.shoppingItems)
             ) { item in
                 ShopItemView(store: item)
             }
+           
 
             HStack(alignment: .center) {
                 Spacer()
+                
                 Button {
                     store.send(.addButtonTapped)
                 } label: {
                     Image(systemName: "plus.circle.fill")
                     Text("Add Product")
                 }
+                
                 Spacer()
             }
             .foregroundStyle(.blue)
-            .buttonStyle(PlainButtonStyle())
-            .onReceive(Just(store.shoppingItems)) {
-                shoppingItems in
-                let allShoppingItems = shoppingItems.map(\.item)
-                store.send(.updateShoppingList(allShoppingItems))
-            }
+            .buttonStyle(PlainButtonStyle()) 
         }
     }
 }

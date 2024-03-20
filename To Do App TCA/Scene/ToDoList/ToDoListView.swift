@@ -19,17 +19,17 @@ struct ToDoListView: View {
             )
         ) {
             List {
-                ForEach(store.toDos) { toDo in
-                    NavigationLink(state: DetailFeature.State(
-                            toDo: toDo
+                ForEach(
+                    store.scope(state: \.toDos, action: \.toDos)
+                ) { toDo in
+                    NavigationLink(
+                        state: DetailFeature.State(
+                            toDo: toDo.state.toDo
                         )
                     ) {
                         HStack{
-                            ToDoRowView(
-                                store: Store(initialState: ToDoRowFeature.State(toDo: toDo)) {
-                                    ToDoRowFeature()
-                                }
-                            )
+                            ToDoRowView(store: toDo)
+                            
                             Button {
                                 store.send(.deleteButtonTapped(id: toDo.id))
                             } label: {
@@ -37,7 +37,6 @@ struct ToDoListView: View {
                                     .foregroundColor(.red)
                             }
                             .buttonStyle(PlainButtonStyle())
-
                         }
                     }
                 }
@@ -52,29 +51,30 @@ struct ToDoListView: View {
                     }
                 }
             }
-        } destination: { store in
+        }
+    destination: { store in
         DetailView(store: store)
     }
-        .sheet(
-            item: $store.scope(
-                state: \.destination?.addToDo,
-                action: \.destination.addToDo
-            )
-        ) {addFormStore in
-            NavigationStack {
-                AddFormView(store: addFormStore)
-            }
+    .sheet(
+        item: $store.scope(
+            state: \.destination?.addToDo,
+            action: \.destination.addToDo
+        )
+    ) {addFormStore in
+        NavigationStack {
+            AddFormView(store: addFormStore)
         }
-        .alert($store.scope(state: \.destination?.alert, action: \.destination.alert))
+    }
+    .alert($store.scope(state: \.destination?.alert, action: \.destination.alert))
     }
 }
 
 #Preview {
     ToDoListView(
         store: Store(
-            initialState: ToDoListFeature.State(
-                toDos: [
-                    AnyToDo(
+            initialState: ToDoListFeature.State(toDos: [
+                ToDoRowFeature.State(
+                    toDo: AnyToDo(
                         GeneralToDo(
                             name: "First Task",
                             description: "Finish it before 12 March 2024",
@@ -82,28 +82,31 @@ struct ToDoListView: View {
                             deadline: Date()
                         ),
                         .general
-                    ),
-                    AnyToDo(
+                    )
+                ),
+                ToDoRowFeature.State(
+                    toDo: AnyToDo(
                         GeneralToDo(
-                            name: "Second Task",
-                            description: "Finish it before 12 March 2024",
+                            name: "First DASDASDSA",
+                            description: "Finish it before 13 March 2024",
                             done: false,
                             deadline: Date()
-                        ),
-                        .general
-                    ),
-                    AnyToDo(
-                        GeneralToDo(
-                            name: "Third Task",
-                            description: "Finish it before 12 March 2024",
-                            done: false,
-                            deadline: Date()
-
                         ),
                         .general
                     )
-                ]
-            )
+                ),
+                ToDoRowFeature.State(
+                    toDo: AnyToDo(
+                        GeneralToDo(
+                            name: "First DSADADSADSAD",
+                            description: "Finish it before 14 March 2024",
+                            done: false,
+                            deadline: Date()
+                        ),
+                        .general
+                    )
+                ),
+            ])
         ) {
             ToDoListFeature()
         }

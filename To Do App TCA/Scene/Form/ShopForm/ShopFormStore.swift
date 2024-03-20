@@ -18,7 +18,6 @@ struct ShopFormFeature {
         var shoppingItems: IdentifiedArrayOf<ShopItemFeature.State> = []
         var image: Image?
         var inputImage: UIImage?
-        var showingImagePicker: Bool = false
     }
     
     enum Action {
@@ -26,14 +25,23 @@ struct ShopFormFeature {
         case shoppingItems(IdentifiedActionOf<ShopItemFeature>)
         case deleteItem(id: ShoppingItem.ID)
         case updateShoppingList([ShoppingItem])
+        //        case addItemsToShoppingList
+        
     }
     
     var body: some ReducerOf<Self> {
-        Reduce {state, action in
+        Reduce { state, action in
             switch action {
-                
             case .addButtonTapped:
-                state.shoppingItems.append(ShopItemFeature.State(item: ShoppingItem(productName: "", photo: "", budget: 0)))
+                state.shoppingItems.append(
+                    ShopItemFeature.State(
+                        item: ShoppingItem(
+                            productName: "",
+                            photo: "",
+                            budget: 0
+                        )
+                    )
+                )
                 return .none
                 
             case let .deleteItem(id: id):
@@ -42,6 +50,12 @@ struct ShopFormFeature {
                 
             case let .shoppingItems(.element(id: id, action: .delegate(.deleteItem))):
                 state.shoppingItems.remove(id: id)
+                state.shopToDo.shoppingList = state.shoppingItems.map { $0.item }
+                return .none
+                
+                
+            case .shoppingItems(.element(id: _, action: .delegate(.updateShoppingList))):
+                state.shopToDo.shoppingList = state.shoppingItems.map { $0.item }
                 return .none
                 
             case .shoppingItems:

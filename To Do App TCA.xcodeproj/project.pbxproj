@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D919A4672BAB23E70075014E /* ImageHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D919A4662BAB23E70075014E /* ImageHelper.swift */; };
 		D91AB56F2BA36350004A0F37 /* To_Do_App_TCAApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91AB56E2BA36350004A0F37 /* To_Do_App_TCAApp.swift */; };
 		D91AB5712BA36350004A0F37 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91AB5702BA36350004A0F37 /* ContentView.swift */; };
 		D91AB5732BA36351004A0F37 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D91AB5722BA36351004A0F37 /* Assets.xcassets */; };
@@ -25,15 +26,12 @@
 		D96979642BA7502E00B657E1 /* ShopItemStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96979632BA7502E00B657E1 /* ShopItemStore.swift */; };
 		D96979662BA7503C00B657E1 /* ShopItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96979652BA7503C00B657E1 /* ShopItemView.swift */; };
 		D969796E2BA84FD800B657E1 /* WorkDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = D969796D2BA84FD800B657E1 /* WorkDetail.swift */; };
-		D96979722BA85BE500B657E1 /* EditFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96979712BA85BE500B657E1 /* EditFormView.swift */; };
-		D96979742BA85BF500B657E1 /* EditFormStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96979732BA85BF500B657E1 /* EditFormStore.swift */; };
 		D96979762BA86D4000B657E1 /* ShopDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96979752BA86D4000B657E1 /* ShopDetail.swift */; };
 		D969797C2BA9306400B657E1 /* TravelFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D969797B2BA9306400B657E1 /* TravelFormView.swift */; };
 		D969797E2BA9307600B657E1 /* TravelFormStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D969797D2BA9307600B657E1 /* TravelFormStore.swift */; };
 		D96979832BA93FD100B657E1 /* TravelDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96979822BA93FD100B657E1 /* TravelDetail.swift */; };
 		D9CC13062BA366ED0011F5A8 /* ToDo.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CC13052BA366ED0011F5A8 /* ToDo.swift */; };
 		D9CC13092BA3675F0011F5A8 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = D9CC13082BA3675F0011F5A8 /* ComposableArchitecture */; };
-		D9CC130C2BA367B50011F5A8 /* ToDoListReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CC130B2BA367B50011F5A8 /* ToDoListReducer.swift */; };
 		D9CC130E2BA367C80011F5A8 /* ToDoListStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CC130D2BA367C80011F5A8 /* ToDoListStore.swift */; };
 		D9CC13102BA367D50011F5A8 /* ToDoListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CC130F2BA367D50011F5A8 /* ToDoListView.swift */; };
 		D9CC13132BA36E550011F5A8 /* ToDoRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CC13122BA36E550011F5A8 /* ToDoRowView.swift */; };
@@ -60,6 +58,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D919A4662BAB23E70075014E /* ImageHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageHelper.swift; sourceTree = "<group>"; };
 		D91AB56B2BA36350004A0F37 /* To Do App TCA.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "To Do App TCA.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D91AB56E2BA36350004A0F37 /* To_Do_App_TCAApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = To_Do_App_TCAApp.swift; sourceTree = "<group>"; };
 		D91AB5702BA36350004A0F37 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -81,14 +80,11 @@
 		D96979632BA7502E00B657E1 /* ShopItemStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopItemStore.swift; sourceTree = "<group>"; };
 		D96979652BA7503C00B657E1 /* ShopItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopItemView.swift; sourceTree = "<group>"; };
 		D969796D2BA84FD800B657E1 /* WorkDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkDetail.swift; sourceTree = "<group>"; };
-		D96979712BA85BE500B657E1 /* EditFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditFormView.swift; sourceTree = "<group>"; };
-		D96979732BA85BF500B657E1 /* EditFormStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditFormStore.swift; sourceTree = "<group>"; };
 		D96979752BA86D4000B657E1 /* ShopDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopDetail.swift; sourceTree = "<group>"; };
 		D969797B2BA9306400B657E1 /* TravelFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelFormView.swift; sourceTree = "<group>"; };
 		D969797D2BA9307600B657E1 /* TravelFormStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelFormStore.swift; sourceTree = "<group>"; };
 		D96979822BA93FD100B657E1 /* TravelDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelDetail.swift; sourceTree = "<group>"; };
 		D9CC13052BA366ED0011F5A8 /* ToDo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDo.swift; sourceTree = "<group>"; };
-		D9CC130B2BA367B50011F5A8 /* ToDoListReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoListReducer.swift; sourceTree = "<group>"; };
 		D9CC130D2BA367C80011F5A8 /* ToDoListStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoListStore.swift; sourceTree = "<group>"; };
 		D9CC130F2BA367D50011F5A8 /* ToDoListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoListView.swift; sourceTree = "<group>"; };
 		D9CC13122BA36E550011F5A8 /* ToDoRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoRowView.swift; sourceTree = "<group>"; };
@@ -123,6 +119,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D919A4652BAB23C70075014E /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				D919A4662BAB23E70075014E /* ImageHelper.swift */,
+			);
+			path = Helper;
+			sourceTree = "<group>";
+		};
 		D91AB5622BA36350004A0F37 = {
 			isa = PBXGroup;
 			children = (
@@ -194,6 +198,7 @@
 		D91AB59E2BA36531004A0F37 /* Scene */ = {
 			isa = PBXGroup;
 			children = (
+				D919A4652BAB23C70075014E /* Helper */,
 				D969796F2BA85BA300B657E1 /* Form */,
 				D9CC131F2BA435CE0011F5A8 /* Detail */,
 				D9CC13172BA3F6620011F5A8 /* Component */,
@@ -261,20 +266,10 @@
 			children = (
 				D96979772BA9301700B657E1 /* TravelForm */,
 				D969794B2BA56D1B00B657E1 /* AddForm */,
-				D96979702BA85BAF00B657E1 /* EditForm */,
 				D96979502BA58DC700B657E1 /* WorkForm */,
 				D96979552BA5934A00B657E1 /* ShopForm */,
 			);
 			path = Form;
-			sourceTree = "<group>";
-		};
-		D96979702BA85BAF00B657E1 /* EditForm */ = {
-			isa = PBXGroup;
-			children = (
-				D96979712BA85BE500B657E1 /* EditFormView.swift */,
-				D96979732BA85BF500B657E1 /* EditFormStore.swift */,
-			);
-			path = EditForm;
 			sourceTree = "<group>";
 		};
 		D96979772BA9301700B657E1 /* TravelForm */ = {
@@ -297,7 +292,6 @@
 		D9CC130A2BA367840011F5A8 /* ToDoList */ = {
 			isa = PBXGroup;
 			children = (
-				D9CC130B2BA367B50011F5A8 /* ToDoListReducer.swift */,
 				D9CC130D2BA367C80011F5A8 /* ToDoListStore.swift */,
 				D9CC130F2BA367D50011F5A8 /* ToDoListView.swift */,
 			);
@@ -480,20 +474,18 @@
 				D969794F2BA56D6000B657E1 /* AddFormStore.swift in Sources */,
 				D9CC13102BA367D50011F5A8 /* ToDoListView.swift in Sources */,
 				D969796E2BA84FD800B657E1 /* WorkDetail.swift in Sources */,
-				D96979722BA85BE500B657E1 /* EditFormView.swift in Sources */,
 				D96979572BA5936400B657E1 /* ShopFormView.swift in Sources */,
 				D91AB5712BA36350004A0F37 /* ContentView.swift in Sources */,
 				D96979762BA86D4000B657E1 /* ShopDetail.swift in Sources */,
 				D9CC130E2BA367C80011F5A8 /* ToDoListStore.swift in Sources */,
+				D919A4672BAB23E70075014E /* ImageHelper.swift in Sources */,
 				D91AB57B2BA36351004A0F37 /* To_Do_App_TCA.xcdatamodeld in Sources */,
-				D9CC130C2BA367B50011F5A8 /* ToDoListReducer.swift in Sources */,
 				D96979592BA5937300B657E1 /* ShopFormStore.swift in Sources */,
 				D91AB56F2BA36350004A0F37 /* To_Do_App_TCAApp.swift in Sources */,
 				D96979642BA7502E00B657E1 /* ShopItemStore.swift in Sources */,
 				D96979662BA7503C00B657E1 /* ShopItemView.swift in Sources */,
 				D969797C2BA9306400B657E1 /* TravelFormView.swift in Sources */,
 				D969797E2BA9307600B657E1 /* TravelFormStore.swift in Sources */,
-				D96979742BA85BF500B657E1 /* EditFormStore.swift in Sources */,
 				D9CC13132BA36E550011F5A8 /* ToDoRowView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

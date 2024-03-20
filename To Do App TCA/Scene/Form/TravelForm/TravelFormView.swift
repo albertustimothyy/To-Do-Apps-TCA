@@ -13,9 +13,7 @@ struct TravelFormView: View {
     
     var body: some View {
         Section(header: Text("Travel To do")) {
-            
             HStack{
-                Text("")
                 DatePicker(
                     selection: $store.travelToDo.startDate.sending(\.setStartDate),
                     in: Date.now...,
@@ -24,7 +22,8 @@ struct TravelFormView: View {
                 )
                 .labelsHidden()
                 
-                Text("-").font(.title3)
+                Text("-")
+                    .font(.title3)
                 
                 DatePicker(
                     selection: $store.travelToDo.endDate.sending(\.setEndDate),

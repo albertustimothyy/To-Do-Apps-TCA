@@ -13,13 +13,11 @@ struct ToDoRowView: View {
     var body: some View {
         VStack {
             HStack {
-                
                 checkBoxButton()
                 
                 Spacer()
                 
                 typeLabel()
-                
             }
         }
     }
@@ -27,32 +25,26 @@ struct ToDoRowView: View {
     @ViewBuilder
     func checkBoxButton() -> some View {
         Button {
-            
             store.send(.checkBoxTapped)
-            
         } label: {
-            
             HStack {
-                
                 Image(
                     systemName: store.toDo.base.done ?
-                      "checkmark.square.fill" : "square"
+                    "checkmark.square.fill" : "square"
                 )
-                .foregroundStyle(
-                    store.toDo.base.done ? .blue : .gray
-                )
+                .foregroundStyle(store.toDo.base.done ? .blue : .gray)
                 
                 VStack(alignment: .leading) {
-                    
                     let name = store.toDo.base.name.prefix(20) + (store.toDo.base.name.count > 20 ? "..." : "")
-                        Text(name)
+                    let description = store.toDo.base.description.prefix(30) + (store.toDo.base.description.count > 30 ? "..." : "")
+                    
+                    Text(name)
                         .font(.subheadline)
                         .strikethrough(
                             store.toDo.base.done ? true : false
                         )
                     
-                    let description = store.toDo.base.description.prefix(30) + (store.toDo.base.description.count > 30 ? "..." : "")
-                        Text(description)
+                    Text(description)
                         .font(.caption2)
                         .foregroundStyle(.gray)
                         .italic()
@@ -92,17 +84,15 @@ struct ToDoRowView: View {
     ToDoRowView(
         store: Store(
             initialState: ToDoRowFeature.State(
-                toDo:
-                    AnyToDo(
-                        GeneralToDo(
-                            name: "First Task",
-                            description: "Finish it before 12 March 2024",
-                            done: false,
-                            deadline: Date()
-                        ),
-                        .general
-                    )
-                
+                toDo: AnyToDo(
+                    GeneralToDo(
+                        name: "First Task",
+                        description: "Finish it before 12 March 2024",
+                        done: false,
+                        deadline: Date()
+                    ),
+                    .general
+                )
             )
         ) {
             ToDoRowFeature()

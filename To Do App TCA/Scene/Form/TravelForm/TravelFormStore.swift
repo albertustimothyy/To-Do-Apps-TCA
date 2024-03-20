@@ -23,7 +23,6 @@ struct TravelFormFeature {
     var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
-                
             case var .setStartDate(startDate):
                 if startDate > state.travelToDo.endDate {
                     state.travelToDo.endDate = startDate
