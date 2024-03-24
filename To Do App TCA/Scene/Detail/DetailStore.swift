@@ -42,7 +42,8 @@ struct DetailFeature {
                             inputDescription: anyToDo.description,
                             inputDeadline: anyToDo.deadline,
                             inputDone: anyToDo.done,
-                            inputType: .general
+                            inputType: .general,
+                            generalData: anyToDo
                         )
                     }
                     

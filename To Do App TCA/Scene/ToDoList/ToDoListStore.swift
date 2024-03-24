@@ -13,8 +13,15 @@ struct ToDoListFeature {
     @ObservableState
     struct State: Equatable {
         @Presents var destination: Destination.State?
-        var toDos: IdentifiedArrayOf<ToDoRowFeature.State>
+        var toDos: IdentifiedArrayOf<ToDoRowFeature.State> = []
         var path = StackState<DetailFeature.State>()
+        init(destination: Destination.State? = nil, toDos: [AnyToDo], path: StackState<DetailFeature.State> = StackState<DetailFeature.State>()) {
+            self.destination = destination
+            toDos.forEach { toDo in
+                self.toDos.append(ToDoRowFeature.State(toDo: toDo))
+            }
+            self.path = path
+        }
     }
     
     enum Action {
@@ -70,15 +77,15 @@ struct ToDoListFeature {
                 return .none
                 
             case let .toDos(.element(id: id, action: .delegate(.toggleDone))):
-//                print("todos ", id)
                 state.toDos[id: id]?.toDo.base.done.toggle()
                 return .none
                 
             case let .path(.element(id: id, action: .delegate(.editToDo))):
                 guard let detailState = state.path[id: id]
                 else { return .none }
-                state.toDos[id: detailState.toDo.id]?.toDo = detailState.toDo
-//                print(state.path[id: id]?.toDo)
+                if let index = state.toDos.firstIndex(where: { $0.toDo.id == detailState.toDo.id }) {
+                    state.toDos[index].toDo = detailState.toDo
+                }
                 return .none
                 
             case .toggleDone:
@@ -99,6 +106,8 @@ struct ToDoListFeature {
             ToDoRowFeature()
         }
     }
+    
+
 }
 
 extension ToDoListFeature {

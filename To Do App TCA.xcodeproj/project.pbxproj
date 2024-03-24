@@ -8,6 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		D919A4672BAB23E70075014E /* ImageHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D919A4662BAB23E70075014E /* ImageHelper.swift */; };
+		D919A46E2BABF5F70075014E /* SearchLocationStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D919A46D2BABF5F70075014E /* SearchLocationStore.swift */; };
+		D919A4702BABF6080075014E /* SearchLocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D919A46F2BABF6080075014E /* SearchLocationView.swift */; };
+		D919A4732BAC26C50075014E /* LocationRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D919A4722BAC26C50075014E /* LocationRepository.swift */; };
+		D919A4752BAC81BE0075014E /* MapSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D919A4742BAC81BE0075014E /* MapSheetView.swift */; };
+		D919A4772BAC81F80075014E /* MapSheetStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D919A4762BAC81F80075014E /* MapSheetStore.swift */; };
 		D91AB56F2BA36350004A0F37 /* To_Do_App_TCAApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91AB56E2BA36350004A0F37 /* To_Do_App_TCAApp.swift */; };
 		D91AB5712BA36350004A0F37 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91AB5702BA36350004A0F37 /* ContentView.swift */; };
 		D91AB5732BA36351004A0F37 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D91AB5722BA36351004A0F37 /* Assets.xcassets */; };
@@ -59,6 +64,11 @@
 
 /* Begin PBXFileReference section */
 		D919A4662BAB23E70075014E /* ImageHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageHelper.swift; sourceTree = "<group>"; };
+		D919A46D2BABF5F70075014E /* SearchLocationStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchLocationStore.swift; sourceTree = "<group>"; };
+		D919A46F2BABF6080075014E /* SearchLocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchLocationView.swift; sourceTree = "<group>"; };
+		D919A4722BAC26C50075014E /* LocationRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationRepository.swift; sourceTree = "<group>"; };
+		D919A4742BAC81BE0075014E /* MapSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapSheetView.swift; sourceTree = "<group>"; };
+		D919A4762BAC81F80075014E /* MapSheetStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapSheetStore.swift; sourceTree = "<group>"; };
 		D91AB56B2BA36350004A0F37 /* To Do App TCA.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "To Do App TCA.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D91AB56E2BA36350004A0F37 /* To_Do_App_TCAApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = To_Do_App_TCAApp.swift; sourceTree = "<group>"; };
 		D91AB5702BA36350004A0F37 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -125,6 +135,42 @@
 				D919A4662BAB23E70075014E /* ImageHelper.swift */,
 			);
 			path = Helper;
+			sourceTree = "<group>";
+		};
+		D919A46A2BABF52E0075014E /* Location */ = {
+			isa = PBXGroup;
+			children = (
+				D919A4712BAC26A50075014E /* Repository */,
+				D919A46C2BABF5D40075014E /* MapSheet */,
+				D919A46B2BABF5BA0075014E /* SearchLocation */,
+			);
+			path = Location;
+			sourceTree = "<group>";
+		};
+		D919A46B2BABF5BA0075014E /* SearchLocation */ = {
+			isa = PBXGroup;
+			children = (
+				D919A46D2BABF5F70075014E /* SearchLocationStore.swift */,
+				D919A46F2BABF6080075014E /* SearchLocationView.swift */,
+			);
+			path = SearchLocation;
+			sourceTree = "<group>";
+		};
+		D919A46C2BABF5D40075014E /* MapSheet */ = {
+			isa = PBXGroup;
+			children = (
+				D919A4742BAC81BE0075014E /* MapSheetView.swift */,
+				D919A4762BAC81F80075014E /* MapSheetStore.swift */,
+			);
+			path = MapSheet;
+			sourceTree = "<group>";
+		};
+		D919A4712BAC26A50075014E /* Repository */ = {
+			isa = PBXGroup;
+			children = (
+				D919A4722BAC26C50075014E /* LocationRepository.swift */,
+			);
+			path = Repository;
 			sourceTree = "<group>";
 		};
 		D91AB5622BA36350004A0F37 = {
@@ -310,6 +356,7 @@
 		D9CC13172BA3F6620011F5A8 /* Component */ = {
 			isa = PBXGroup;
 			children = (
+				D919A46A2BABF52E0075014E /* Location */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -469,6 +516,7 @@
 				D9CC13232BA436100011F5A8 /* DetailView.swift in Sources */,
 				D96979542BA58E1600B657E1 /* WorkFormView.swift in Sources */,
 				D9CC13062BA366ED0011F5A8 /* ToDo.swift in Sources */,
+				D919A46E2BABF5F70075014E /* SearchLocationStore.swift in Sources */,
 				D9CC13152BA36E6E0011F5A8 /* ToDoRowStore.swift in Sources */,
 				D9CC13212BA435F70011F5A8 /* DetailStore.swift in Sources */,
 				D969794F2BA56D6000B657E1 /* AddFormStore.swift in Sources */,
@@ -476,8 +524,10 @@
 				D969796E2BA84FD800B657E1 /* WorkDetail.swift in Sources */,
 				D96979572BA5936400B657E1 /* ShopFormView.swift in Sources */,
 				D91AB5712BA36350004A0F37 /* ContentView.swift in Sources */,
+				D919A4752BAC81BE0075014E /* MapSheetView.swift in Sources */,
 				D96979762BA86D4000B657E1 /* ShopDetail.swift in Sources */,
 				D9CC130E2BA367C80011F5A8 /* ToDoListStore.swift in Sources */,
+				D919A4702BABF6080075014E /* SearchLocationView.swift in Sources */,
 				D919A4672BAB23E70075014E /* ImageHelper.swift in Sources */,
 				D91AB57B2BA36351004A0F37 /* To_Do_App_TCA.xcdatamodeld in Sources */,
 				D96979592BA5937300B657E1 /* ShopFormStore.swift in Sources */,
@@ -485,8 +535,10 @@
 				D96979642BA7502E00B657E1 /* ShopItemStore.swift in Sources */,
 				D96979662BA7503C00B657E1 /* ShopItemView.swift in Sources */,
 				D969797C2BA9306400B657E1 /* TravelFormView.swift in Sources */,
+				D919A4772BAC81F80075014E /* MapSheetStore.swift in Sources */,
 				D969797E2BA9307600B657E1 /* TravelFormStore.swift in Sources */,
 				D9CC13132BA36E550011F5A8 /* ToDoRowView.swift in Sources */,
+				D919A4732BAC26C50075014E /* LocationRepository.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -59,6 +59,7 @@ struct AddFormView: View {
                     }
                 }
             }
+            
             switch store.inputType {
             case .general:
                 EmptyView()
@@ -133,7 +134,7 @@ struct AddFormView: View {
         .toolbar {
             ToolbarItem {
                 Button {
-                    store.send(.xMarkTapped)
+                    store.send(.closeTapped)
                 } label: {
                     Image(systemName: "xmark.circle")
                         .resizable()

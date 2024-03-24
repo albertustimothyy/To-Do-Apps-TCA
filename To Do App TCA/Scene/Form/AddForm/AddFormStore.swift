@@ -19,13 +19,14 @@ struct AddFormFeature {
         var inputDeadline: Date
         var inputDone: Bool
         var inputType: ToDoType
+        var generalData: GeneralToDo?
         var workData: WorkFormFeature.State?
         var shopData: ShopFormFeature.State?
         var travelData: TravelFormFeature.State?
     }
     
     enum Action {
-        case xMarkTapped
+        case closeTapped
         case setName(String)
         case setDescription(String)
         case setType(ToDoType)
@@ -46,7 +47,8 @@ struct AddFormFeature {
     var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
-            case .xMarkTapped:
+            case .closeTapped:
+                state.generalData = nil
                 state.workData = nil
                 state.shopData = nil
                 state.travelData = nil
@@ -58,7 +60,7 @@ struct AddFormFeature {
                 state.inputName = name
                 switch state.inputType {
                 case .general:
-                    break
+                    state.generalData?.name = name
                 case .shop:
                     state.shopData?.shopToDo.name = name
                 case .travel:
@@ -70,9 +72,10 @@ struct AddFormFeature {
                 
             case let .setDescription(desc):
                 state.inputDescription = desc
+                
                 switch state.inputType {
                 case .general:
-                    break
+                    state.generalData?.description = desc
                 case .shop:
                     state.shopData?.shopToDo.description = desc
                 case .travel:
@@ -84,9 +87,10 @@ struct AddFormFeature {
                 
             case let .setDeadline(deadline):
                 state.inputDeadline = deadline
+                
                 switch state.inputType {
                 case .general:
-                    break
+                    state.generalData?.deadline = deadline
                 case .shop:
                     state.shopData?.shopToDo.deadline = deadline
                 case .travel:
@@ -108,6 +112,12 @@ struct AddFormFeature {
                 state.inputType = type
                 switch state.inputType {
                 case .general:
+                    state.generalData = GeneralToDo(
+                        name: state.inputName,
+                        description: state.inputDescription,
+                        done: state.inputDone,
+                        deadline: state.inputDeadline
+                    )
                     state.workData = nil
                     state.shopData = nil
                     state.travelData = nil
@@ -123,6 +133,7 @@ struct AddFormFeature {
                     )
                     state.workData = nil
                     state.travelData = nil
+                    state.generalData = nil
                 case .travel:
                     state.travelData = TravelFormFeature.State(
                         travelToDo: TravelToDo(
@@ -137,6 +148,7 @@ struct AddFormFeature {
                     )
                     state.workData = nil
                     state.shopData = nil
+                    state.generalData = nil
                 case .work:
                     state.workData = WorkFormFeature.State(
                         workToDo: WorkToDo(
@@ -150,36 +162,37 @@ struct AddFormFeature {
                     )
                     state.shopData = nil
                     state.travelData = nil
+                    state.generalData = nil
                 }
                 return .none
                 
             case .saveButtonTapped:
                 switch state.inputType {
                 case .general:
-                    let toDo = GeneralToDo(
-                        name: state.inputName,
-                        description: state.inputDescription,
-                        done: state.inputDone,
-                        deadline: state.inputDeadline
-                    )
+                    guard let toDo = state.generalData else { return .none }
                     state.toDo = AnyToDo(toDo, .general)
+                    state.generalData = nil
                     state.workData = nil
                     state.shopData = nil
                     state.travelData = nil
                 case .shop:
                     guard let toDo = state.shopData?.shopToDo else { return .none }
                     state.toDo = AnyToDo(toDo, .shop)
+                    state.generalData = nil
                     state.workData = nil
+                    state.shopData = nil
                     state.travelData = nil
                 case .travel:
                     guard let toDo = state.travelData?.travelToDo else { return .none }
                     state.toDo = AnyToDo(toDo, .travel)
+                    state.generalData = nil
                     state.workData = nil
                     state.shopData = nil
                     state.travelData = nil
                 case .work:
                     guard let toDo = state.workData?.workToDo else { return .none }
                     state.toDo = AnyToDo(toDo, .work)
+                    state.generalData = nil
                     state.workData = nil
                     state.shopData = nil
                     state.travelData = nil

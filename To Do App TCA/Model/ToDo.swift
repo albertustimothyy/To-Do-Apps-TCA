@@ -26,6 +26,7 @@ enum ToDoType : String, Codable, Equatable {
     }
 }
 protocol ToDo: Hashable, Codable {
+    var id: String { get set }
     var name: String { get set }
     var description: String { get set }
     static var type: ToDoType { get }
@@ -63,6 +64,7 @@ struct ShoppingItem: Codable, Hashable, Identifiable {
 
 
 struct TravelToDo : ToDo {
+    var id: String = UUID().uuidString
     var name: String
     var description: String
     static var type = ToDoType.travel
@@ -85,6 +87,7 @@ struct TravelToDo : ToDo {
 }
 
 struct WorkToDo : ToDo {
+    var id: String = UUID().uuidString
     var name: String
     var description: String
     static var type = ToDoType.work
@@ -100,17 +103,18 @@ struct AnyToDo : Codable, Identifiable, Equatable {
         return lhs.id == rhs.id
     }
     
-    var id: String  = UUID().uuidString
+    var id: String
     var typee: ToDoType
     var base: any ToDo
 
     init(_ base: any ToDo, _ typee: ToDoType) {
         self.base = base
         self.typee = typee
+        self.id = base.id
     }
 
     private enum CodingKeys : CodingKey {
-        case type, base
+        case id, type, base
     }
 
     init(from decoder: Decoder) throws {
@@ -119,6 +123,7 @@ struct AnyToDo : Codable, Identifiable, Equatable {
         let type = try container.decode(ToDoType.self, forKey: .type)
         self.base = try type.metatype.init(from: container.superDecoder(forKey: .base))
         self.typee = type
+        self.id = self.base.id
     }
 
     func encode(to encoder: Encoder) throws {

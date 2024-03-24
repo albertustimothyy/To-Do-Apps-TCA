@@ -73,39 +73,33 @@ struct ToDoListView: View {
     ToDoListView(
         store: Store(
             initialState: ToDoListFeature.State(toDos: [
-                ToDoRowFeature.State(
-                    toDo: AnyToDo(
+                AnyToDo(
                         GeneralToDo(
                             name: "First Task",
-                            description: "Finish it before 12 March 2024",
-                            done: false,
-                            deadline: Date()
-                        ),
-                        .general
-                    )
-                ),
-                ToDoRowFeature.State(
-                    toDo: AnyToDo(
-                        GeneralToDo(
-                            name: "First DASDASDSA",
-                            description: "Finish it before 13 March 2024",
-                            done: false,
-                            deadline: Date()
-                        ),
-                        .general
-                    )
-                ),
-                ToDoRowFeature.State(
-                    toDo: AnyToDo(
-                        GeneralToDo(
-                            name: "First DSADADSADSAD",
                             description: "Finish it before 14 March 2024",
                             done: false,
                             deadline: Date()
                         ),
                         .general
-                    )
-                ),
+                    ),
+                AnyToDo(
+                        GeneralToDo(
+                            name: "Second Task",
+                            description: "Finish it before 15 March 2024",
+                            done: false,
+                            deadline: Date()
+                        ),
+                        .general
+                    ),
+                AnyToDo(
+                        GeneralToDo(
+                            name: "Third Task",
+                            description: "Finish it before 16 March 2024",
+                            done: false,
+                            deadline: Date()
+                        ),
+                        .general
+                    ),
             ])
         ) {
             ToDoListFeature()

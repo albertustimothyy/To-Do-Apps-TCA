@@ -10,10 +10,33 @@ import ComposableArchitecture
 
 struct TravelFormView: View {
     @Bindable var store: StoreOf<TravelFormFeature>
-    
     var body: some View {
         Section(header: Text("Travel To do")) {
-            HStack{
+            VStack(spacing: 15) {
+                HStack {
+                    Button {
+                        store.send(.openMapTapped)
+                    } label: {
+                        Text("Search location")
+                    }
+                    Spacer()
+                }
+                
+                ZStack {
+                    Rectangle()
+                        .fill(.secondary)
+                    
+                    if let mapView = store.mapView {
+                        MapViewHelper(mapView: mapView)
+                    }
+                }
+                .clipShape(RoundedRectangle(cornerRadius: 10))
+                .frame(width: 300, height: 180)
+            }
+            
+            HStack {
+                Spacer()
+                
                 DatePicker(
                     selection: $store.travelToDo.startDate.sending(\.setStartDate),
                     in: Date.now...,
@@ -32,6 +55,13 @@ struct TravelFormView: View {
                     label: { Text("End Date") }
                 )
                 .labelsHidden()
+                
+                Spacer()
+            }
+        }
+        .sheet(item: $store.scope(state: \.searchLocation, action: \.searchLocation)) { searchLocationStore in
+            NavigationStack {
+                SearchLocationView(store: searchLocationStore)
             }
         }
     }

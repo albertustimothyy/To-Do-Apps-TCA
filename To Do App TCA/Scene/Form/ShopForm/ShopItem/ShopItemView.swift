@@ -73,10 +73,8 @@ struct ShopItemView: View {
                 }
                 .foregroundStyle(.red)
                 .buttonStyle(PlainButtonStyle())
-                
             }
         }
-        
     }
     
 }

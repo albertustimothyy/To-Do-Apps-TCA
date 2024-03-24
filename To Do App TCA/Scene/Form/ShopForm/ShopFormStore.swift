@@ -18,6 +18,15 @@ struct ShopFormFeature {
         var shoppingItems: IdentifiedArrayOf<ShopItemFeature.State> = []
         var image: Image?
         var inputImage: UIImage?
+        
+        init(shopToDo: ShopToDo, image: Image? = nil, inputImage: UIImage? = nil) {
+            self.shopToDo = shopToDo
+            self.shopToDo.shoppingList.forEach { toDoItems in
+                self.shoppingItems.append(ShopItemFeature.State(item: toDoItems))
+            }
+            self.image = image
+            self.inputImage = inputImage
+        }
     }
     
     enum Action {
@@ -25,8 +34,6 @@ struct ShopFormFeature {
         case shoppingItems(IdentifiedActionOf<ShopItemFeature>)
         case deleteItem(id: ShoppingItem.ID)
         case updateShoppingList([ShoppingItem])
-        //        case addItemsToShoppingList
-        
     }
     
     var body: some ReducerOf<Self> {
@@ -70,6 +77,5 @@ struct ShopFormFeature {
         .forEach(\.shoppingItems, action: \.shoppingItems) {
             ShopItemFeature()
         }
-        
     }
 }

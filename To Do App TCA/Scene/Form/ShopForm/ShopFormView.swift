@@ -18,8 +18,8 @@ struct ShopFormView: View {
             ) { item in
                 ShopItemView(store: item)
             }
-           
-
+            
+            
             HStack(alignment: .center) {
                 Spacer()
                 
@@ -33,23 +33,23 @@ struct ShopFormView: View {
                 Spacer()
             }
             .foregroundStyle(.blue)
-            .buttonStyle(PlainButtonStyle()) 
+            .buttonStyle(PlainButtonStyle())
         }
     }
 }
 
 #Preview {
     ShopFormView(
-        store: Store(initialState: ShopFormFeature.State(
-            shopToDo: ShopToDo(
-                name: "",
-                description: "",
-                done: false,
-                deadline: Date(),
-                shoppingList: []
-            ),
-            shoppingItems: []
-        )
+        store: Store(
+            initialState: ShopFormFeature.State(
+                shopToDo: ShopToDo(
+                    name: "",
+                    description: "",
+                    done: false,
+                    deadline: Date(),
+                    shoppingList: []
+                )
+            )
         ) {
             ShopFormFeature()
         }
